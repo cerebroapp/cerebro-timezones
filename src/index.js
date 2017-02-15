@@ -2,10 +2,11 @@
 
 const geocode = require('./geocode')
 const getTimezone = require('./getTimezone')
+const timeStringToEmoj = require('./timeStringToEmoj')
 const path = require('path')
 
-const formatLocation = ({lat, lng}) => `${lat},${lng}`
 
+const formatLocation = ({lat, lng}) => `${lat},${lng}`
 const parseAddress = (address_components) => {
   const city = address_components.find(({types}) => types.includes('locality')) || {}
   const country = address_components.find(({types}) => types.includes('country')) || {}
@@ -31,10 +32,14 @@ const plugin = ({term, display, config, actions}) => {
         const time = now.toLocaleTimeString(locale, { timeZone }).replace(/:\d{2}(:?\s|$)/, '')
         const date = now.toLocaleDateString(locale, { timeZone })
         const offset = `UTC +${rawOffset / 3600}`
+        const icon = countryShort
+          ? path.join(__dirname, 'flags', `${countryShort}.png`)
+          : null
         display({
+          icon,
           title: `${cityLong || countryLong}: ${time}`,
+          term: `${term} ${timeStringToEmoj(time)} ${time} (${offset})`,
           subtitle: `${date} · ${countryLong} · ${tz.timeZoneName} (${offset})`,
-          icon: path.join(__dirname, 'flags', `${countryShort}.png`)
         })
       })
     })
