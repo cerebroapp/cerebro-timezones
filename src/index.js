@@ -18,6 +18,23 @@ const parseAddress = (address_components) => {
   }
 }
 
+const parseOffset = (rawOffset) => {
+  let result = `UTC`
+  let sign = Math.sign(rawOffset)
+  if (sign === 0) {
+    return result
+  }
+  sign = sign > 0 ? '+' : '-'
+  let minutes = Math.abs(rawOffset / 60)
+  const hours = Math.ceil(minutes / 60)
+  minutes = minutes % 60
+  result += ` ${sign}${hours}`
+  if (minutes != 0) {
+    result += `:${minutes}`
+  }
+  return result
+}
+
 const plugin = ({term, display, config, actions}) => {
   const locale = 'ru-RU'//config.get('locale')
   const lang = config.get('lang')
@@ -31,7 +48,7 @@ const plugin = ({term, display, config, actions}) => {
         const now = new Date()
         const time = now.toLocaleTimeString(locale, { timeZone }).replace(/:\d{2}(:?\s|$)/, '')
         const date = now.toLocaleDateString(locale, { timeZone })
-        const offset = `UTC +${rawOffset / 3600}`
+        const offset = parseOffset(rawOffset)
         const icon = countryShort
           ? path.join(__dirname, 'flags', `${countryShort}.png`)
           : null
