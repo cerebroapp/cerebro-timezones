@@ -1,5 +1,7 @@
 # cerebro-timezones
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/KELiON/cerebro-timezones.svg)](https://greenkeeper.io/)
+
 > [Cerebro](http://www.cerebroapp.com) plugin to show time in different time zones
 
 ![](screenshot.gif)
