@@ -26,7 +26,7 @@ const parseOffset = (rawOffset) => {
   }
   sign = sign > 0 ? '+' : '-'
   let minutes = Math.abs(rawOffset / 60)
-  const hours = Math.ceil(minutes / 60)
+  const hours = Math.floor(minutes / 60)
   minutes = minutes % 60
   result += ` ${sign}${hours}`
   if (minutes != 0) {

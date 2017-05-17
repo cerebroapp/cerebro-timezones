@@ -1,6 +1,6 @@
 {
   "name": "cerebro-timezones",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Cerebro plugin to show time in different time zones",
   "license": "MIT",
   "repository": "KELiON/cerebro-timezones",
